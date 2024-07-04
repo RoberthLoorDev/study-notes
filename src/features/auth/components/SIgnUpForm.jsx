@@ -1,5 +1,6 @@
 import React from "react";
 import UseSignUp from "../hooks/UseSignUp";
+import ButtonComponent from "../../common/components/ButtonComponent";
 
 export default function SIgnUpForm() {
     const {
@@ -16,7 +17,7 @@ export default function SIgnUpForm() {
     return (
         <div className="w-[346px] h-[541px] bg-[#19191B] rounded-3xl text-white">
             <form onSubmit={handleSubmit} className="flex flex-col mx-[45px] justify-center h-full">
-                <span className="text-base font-bold text-center">SIGN UP</span>
+                <span className="text-base font-bold text-center">REGISTRARSE</span>
                 <div className="flex flex-col gap-[18px] mt-[18px]">
                     <input
                         value={email}
@@ -29,32 +30,31 @@ export default function SIgnUpForm() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                         type="password"
-                        placeholder="Password"
+                        placeholder="Contraseña"
                         className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none"
                     />
                     <input
                         value={confirmPassword}
                         onChange={(event) => setConfirmPassword(event.target.value)}
                         type="password"
-                        placeholder="Repeat Password"
+                        placeholder="Repetir contraseña"
                         className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none"
                     />
                 </div>
-                <button
-                    type="submit"
-                    className=" w-full bg-[#27272C] border-[1px] border-[#343434] h-[38px] rounded-[8px] mt-[41px]"
-                >
-                    Sign up
-                </button>
+
+                <ButtonComponent title="Registrarse" type="submit" margin="41px 0 0 0" />
+
                 <span className="text-center mt-[30px] text-sm italic text-[#343434]">Or sign up using:</span>
 
-                <button
+                <ButtonComponent
                     type="button"
-                    className=" w-[143px] bg-[#27272C] border-[1px] border-[#343434] h-[38px] rounded-[8px] mt-[22px] text-[#717171] mx-auto"
+                    marginTop="22px"
+                    margin="22px auto 0px"
+                    title="Google"
+                    textType="secondary"
+                    width="143px"
                     onClick={handleSignInGoogle}
-                >
-                    Google
-                </button>
+                />
 
                 <span className="text-center mt-[30px] text-sm italic text-[#343434]">
                     You do have an account? <b>Sign in</b>
