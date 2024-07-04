@@ -2,8 +2,16 @@ import React from "react";
 import UseSignUp from "../hooks/UseSignUp";
 
 export default function SIgnUpForm() {
-    const { email, setEmail, password, setPassword, confirmPassword, setConfirmPassword, handleSubmit } =
-        UseSignUp();
+    const {
+        email,
+        setEmail,
+        password,
+        setPassword,
+        confirmPassword,
+        setConfirmPassword,
+        handleSubmit,
+        handleSignInGoogle,
+    } = UseSignUp();
 
     return (
         <div className="w-[346px] h-[541px] bg-[#19191B] rounded-3xl text-white">
@@ -39,9 +47,15 @@ export default function SIgnUpForm() {
                     Sign up
                 </button>
                 <span className="text-center mt-[30px] text-sm italic text-[#343434]">Or sign up using:</span>
-                <button className=" w-[143px] bg-[#27272C] border-[1px] border-[#343434] h-[38px] rounded-[8px] mt-[22px] text-[#717171] mx-auto">
+
+                <button
+                    type="button"
+                    className=" w-[143px] bg-[#27272C] border-[1px] border-[#343434] h-[38px] rounded-[8px] mt-[22px] text-[#717171] mx-auto"
+                    onClick={handleSignInGoogle}
+                >
                     Google
                 </button>
+
                 <span className="text-center mt-[30px] text-sm italic text-[#343434]">
                     You do have an account? <b>Sign in</b>
                 </span>

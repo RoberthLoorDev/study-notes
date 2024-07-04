@@ -1,7 +1,7 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
 import { toast } from "sonner";
-import { auth } from "../../../../firebase";
+import { auth, provider } from "../../../../firebase";
 
 export default function UseSignUp() {
     const [email, setEmail] = useState("");
@@ -39,5 +39,25 @@ export default function UseSignUp() {
             console.error(error);
         }
     };
-    return { email, setEmail, password, setPassword, confirmPassword, setConfirmPassword, handleSubmit };
+
+    const handleSignInGoogle = async () => {
+        const registerUserWithGoogle = await signInWithPopup(auth, provider);
+        console.log("Usuario registrado", registerUserWithGoogle.user);
+
+        try {
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    return {
+        email,
+        setEmail,
+        password,
+        setPassword,
+        confirmPassword,
+        setConfirmPassword,
+        handleSubmit,
+        handleSignInGoogle,
+    };
 }
