@@ -1,9 +1,10 @@
 import React from "react";
+import LoginForm from "../components/LoginForm";
 
 export default function Login() {
     return (
-        <div>
-            <h1 className="text-black">Login Page</h1>
+        <div className="flex flex-col h-screen w-screen justify-center items-center">
+            <LoginForm />
         </div>
     );
 }

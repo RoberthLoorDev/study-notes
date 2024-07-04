@@ -1,50 +1,36 @@
-import React from "react";
-import UseSignUp from "../hooks/UseSignUp";
+import React, { useState } from "react";
 import ButtonComponent from "../../common/components/ButtonComponent";
+import UseSignIn from "../hooks/UseSignIn";
 
-export default function SIgnUpForm() {
-    const {
-        email,
-        setEmail,
-        password,
-        setPassword,
-        confirmPassword,
-        setConfirmPassword,
-        handleSubmit,
-        handleSignInGoogle,
-    } = UseSignUp();
+export default function LoginForm() {
+    const { email, setEmail, password, setPassword, handleLogin, handleSignInGoogle } = UseSignIn();
 
     return (
         <div className="w-[346px] h-[541px] bg-[#19191B] rounded-3xl text-white">
-            <form onSubmit={handleSubmit} className="flex flex-col mx-[45px] justify-center h-full">
-                <span className="text-base font-bold text-center">REGISTRARSE</span>
-                <div className="flex flex-col gap-[18px] mt-[18px]">
+            <form className="flex flex-col mx-[45px] justify-center h-full" onSubmit={handleLogin}>
+                <span className="text-base font-bold text-center">INICIAR SESIÓN</span>
+                <div className="flex flex-col gap-[18px] mt-[51px]">
                     <input
+                        type="email"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
-                        type="email"
                         placeholder="Email"
                         className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none"
                     />
                     <input
+                        type="password"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
-                        type="password"
                         placeholder="Contraseña"
                         className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none"
                     />
-                    <input
-                        value={confirmPassword}
-                        onChange={(event) => setConfirmPassword(event.target.value)}
-                        type="password"
-                        placeholder="Repetir contraseña"
-                        className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none"
-                    />
                 </div>
+                <span className="text-xs text-[#717171] italic mt-[14px]">¿Olvidaste tu contraseña?</span>
 
-                <ButtonComponent title="Registrarse" type="submit" margin="41px 0 0 0" />
-
-                <span className="text-center mt-[30px] text-sm italic text-[#343434]">Or sign up using:</span>
+                <ButtonComponent margin="40px 0 0 0" title="Iniciar sesión" />
+                <span className="text-xs text-[#717171] italic text-center mt-[22px]">
+                    O inicia sesión usando
+                </span>
 
                 <ButtonComponent
                     type="button"
@@ -56,7 +42,10 @@ export default function SIgnUpForm() {
                 />
 
                 <span className="text-center mt-[30px] text-sm italic text-[#343434]">
-                    You do have an account? <b>Sign in</b>
+                    ¿No tienes una cuenta?
+                    <a href="">
+                        <b>Registrate</b>
+                    </a>
                 </span>
             </form>
         </div>
