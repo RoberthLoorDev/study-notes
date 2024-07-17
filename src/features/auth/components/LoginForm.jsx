@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ButtonComponent from "../../common/components/ButtonComponent";
 import UseSignIn from "../hooks/UseSignIn";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
     const { email, setEmail, password, setPassword, handleLogin, handleSignInGoogle } = UseSignIn();
@@ -43,9 +44,9 @@ export default function LoginForm() {
 
                 <span className="text-center mt-[30px] text-sm italic text-[#343434]">
                     ¿No tienes una cuenta?
-                    <a href="">
+                    <Link to={"/sign-up"}>
                         <b>Registrate</b>
-                    </a>
+                    </Link>
                 </span>
             </form>
         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import UseSignUp from "../hooks/UseSignUp";
 import ButtonComponent from "../../common/components/ButtonComponent";
+import { Link } from "react-router-dom";
 
 export default function SIgnUpForm() {
     const {
@@ -56,7 +57,10 @@ export default function SIgnUpForm() {
                 />
 
                 <span className="text-center mt-[30px] text-sm italic text-[#343434]">
-                    You do have an account? <b>Sign in</b>
+                    You do have an account?
+                    <Link to={"/login"}>
+                        <b>Sign in</b>
+                    </Link>
                 </span>
             </form>
         </div>
