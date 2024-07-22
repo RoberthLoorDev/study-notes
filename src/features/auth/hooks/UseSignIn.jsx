@@ -33,8 +33,9 @@ export default function UseSignIn() {
     };
 
     const handleSignInGoogle = async () => {
-        await signInWithPopup(auth, provider);
         try {
+            const userLogged = await signInWithPopup(auth, provider);
+            console.log("user logged", userLogged);
         } catch (error) {
             console.error(error);
         }
