@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import ButtonComponent from "../../common/components/ButtonComponent";
 import UseSignIn from "../hooks/UseSignIn";
-import { Link } from "react-router-dom";
 
 export default function LoginForm() {
-    const { email, setEmail, password, setPassword, handleLogin, handleSignInGoogle } = UseSignIn();
+    const { email, setEmail, password, setPassword, handleLogin, handleSignInGoogle, handleSignout } =
+        UseSignIn();
 
     return (
         <div className="w-[346px] h-[541px] bg-[#19191B] rounded-3xl text-white">

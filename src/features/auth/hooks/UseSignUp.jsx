@@ -1,12 +1,14 @@
-import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { auth, provider } from "../../../../firebase";
+import UseAuth from "../context/UseAuth";
 
 export default function UseSignUp() {
     const [email, setEmail] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [password, setPassword] = useState("");
+    const { registerEmailPassword, registerGoogle } = UseAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -18,11 +20,11 @@ export default function UseSignUp() {
             return;
         }
 
-        const registerUserPromise = createUserWithEmailAndPassword(auth, email, password);
+        const registeredUser = registerEmailPassword(email, password);
 
         //toast notification
         toast.promise(
-            registerUserPromise,
+            registeredUser,
             {
                 loading: "Cargando...",
                 success: "Usuario registrado",
@@ -34,15 +36,16 @@ export default function UseSignUp() {
         );
 
         try {
-            await registerUserPromise;
+            await registeredUser;
+
+            navigate("/courses");
         } catch (error) {
             console.error(error);
         }
     };
 
     const handleSignInGoogle = async () => {
-        const registerUserWithGoogle = await signInWithPopup(auth, provider);
-        console.log("Usuario registrado", registerUserWithGoogle.user);
+        const registerUserWithGoogle = await registerGoogle();
 
         try {
         } catch (error) {
