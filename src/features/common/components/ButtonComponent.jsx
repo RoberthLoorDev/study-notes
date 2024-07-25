@@ -21,7 +21,7 @@ export default function ButtonComponent({
         <button
             style={{ width, height, fontWeight, margin }}
             type={`${type}`}
-            className={`rounded-[8px] bg-[#27272C] border-[1px] border-[#343434]`}
+            className={`rounded-[8px] bg-[#27272C] border-[1px] border-[#343434] text-white text-sm`}
             onClick={onClick}
         >
             <span className={`${textStyleButton}`}>{`${title}`}</span>

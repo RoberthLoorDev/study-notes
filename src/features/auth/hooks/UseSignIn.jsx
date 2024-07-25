@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../../../../firebase";
+import UseAuth from "../context/UseAuth";
 
 export default function UseSignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { loading, user, loginGoogle, loginEmailPassword, logout } = UseAuth(); //
+
+    const navigate = useNavigate();
 
     const handleLogin = async (event) => {
         event.preventDefault();
 
-        const loggedUser = signInWithEmailAndPassword(auth, email, password);
+        const loggedUser = loginEmailPassword(email, password);
 
         //toast notification
         toast.promise(
@@ -27,18 +30,25 @@ export default function UseSignIn() {
 
         try {
             await loggedUser;
+            navigate("/courses");
         } catch (error) {
             console.error(error);
         }
     };
 
     const handleSignInGoogle = async () => {
-        await signInWithPopup(auth, provider);
         try {
+            const userLogged = await loginGoogle();
+            navigate("/courses");
         } catch (error) {
             console.error(error);
         }
     };
 
-    return { email, password, setEmail, setPassword, handleLogin, handleSignInGoogle };
+    const handleSignout = () => {
+        navigate("/login");
+        logout();
+    };
+
+    return { email, password, setEmail, setPassword, handleLogin, handleSignInGoogle, handleSignout };
 }
