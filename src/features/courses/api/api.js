@@ -29,6 +29,8 @@ export const getCoursesByUser = async (user) => {
         const coursesArray = [];
         querySnapshot.forEach((doc) => coursesArray.push({ id: doc.id, ...doc.data() }));
 
+        if (!coursesArray) return [];
+
         return coursesArray;
     } catch (error) {
         console.error(error);
