@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import UseAuth from "../../auth/context/UseAuth";
 
 export default function ModalSection({ isOpen, onClose, children }) {
     if (!isOpen) return null;

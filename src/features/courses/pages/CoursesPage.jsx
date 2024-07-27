@@ -1,10 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CoursesSection from "../sections/CoursesSection";
 import ButtonComponent from "../../common/components/ButtonComponent";
 import ModalSection from "../sections/ModalSection";
+import UseSaveCourses from "../hooks/UseSaveCourses";
+import UseAuth from "../../auth/context/UseAuth";
 
 export default function CoursesPage() {
     //we use ref to point to the input image
+
+    const { handleSaveCourse, setImage, setName } = UseSaveCourses();
     const inputRefImage = useRef(null);
 
     const focusInput = () => {
@@ -26,11 +30,14 @@ export default function CoursesPage() {
 
                 <ButtonComponent width="149px" height="38px" title="Create course" onClick={openModal} />
 
+                {/* Modal create course
+                 */}
                 <ModalSection isOpen={isModalOpen} onClose={closeModal}>
                     <h3 className="font-medium text-white">Create subject</h3>
                     <input
                         type="email"
                         placeholder="Name of the subject"
+                        onChange={(e) => setName(e.target.value)}
                         className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none text-white mt-3"
                     />
 
@@ -39,6 +46,7 @@ export default function CoursesPage() {
                         type="file"
                         accept="image"
                         ref={inputRefImage}
+                        onChange={(e) => setImage(e.target.files[0])}
                     />
 
                     <button
@@ -52,7 +60,7 @@ export default function CoursesPage() {
                         <span className="text-[#717171] text-xs">Only images</span>
                     </button>
 
-                    <ButtonComponent title="Create subject" margin="61px 0 0 0" />
+                    <ButtonComponent title="Create subject" margin="61px 0 0 0" onClick={handleSaveCourse} />
                 </ModalSection>
             </div>
 
