@@ -1,6 +1,6 @@
 //save course
 import { db } from "../../../../firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, query, where, getDocs, getDoc } from "firebase/firestore";
 import axios from "axios";
 
 export const saveCourse = async (user, name, imageUrl) => {
@@ -14,8 +14,22 @@ export const saveCourse = async (user, name, imageUrl) => {
 
         const courseDocRef = doc(collection(db, "courses"));
         await setDoc(courseDocRef, courseDataToSave);
+    } catch (error) {
+        console.error(error);
+    }
+};
 
-        console.log("Curso guadado");
+//get courses for user
+export const getCoursesByUser = async (user) => {
+    try {
+        const courseCollectionRef = collection(db, "courses");
+        const q = query(courseCollectionRef, where("idUser", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        const coursesArray = [];
+        querySnapshot.forEach((doc) => coursesArray.push({ id: doc.id, ...doc.data() }));
+
+        return coursesArray;
     } catch (error) {
         console.error(error);
     }
