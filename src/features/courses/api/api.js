@@ -1,6 +1,6 @@
 //save course
 import { db } from "../../../../firebase";
-import { collection, doc, setDoc, query, where, getDocs, getDoc } from "firebase/firestore";
+import { collection, doc, setDoc, query, where, getDocs, getDoc, updateDoc } from "firebase/firestore";
 import axios from "axios";
 
 export const saveCourse = async (user, name, imageUrl) => {
@@ -55,6 +55,23 @@ export const uploadImage = async (file) => {
         const imageUploaded = response.data.data.display_url;
 
         return imageUploaded;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+//delete course - deletion logically, not physically
+export const deleteCourse = async (courseId) => {
+    const dateDeleted = new Date();
+    const updateDocument = {
+        isDeleted: true,
+        dateDeleted,
+    };
+
+    try {
+        const courseDocRef = doc(db, "courses", courseId);
+        await updateDoc(courseDocRef, updateDocument);
+        console.log("Curso actualizado");
     } catch (error) {
         console.error(error);
     }

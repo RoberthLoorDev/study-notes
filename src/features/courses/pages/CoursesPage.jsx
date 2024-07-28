@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import CoursesSection from "../sections/CoursesSection";
+import React, { useRef, useState } from "react";
 import ButtonComponent from "../../common/components/ButtonComponent";
-import ModalSection from "../sections/ModalSection";
 import UseSaveCourses from "../hooks/UseSaveCourses";
-import UseAuth from "../../auth/context/UseAuth";
+import CoursesSection from "../sections/CoursesSection";
+import ModalSection from "../sections/ModalSection";
 
 export default function CoursesPage() {
     //we use ref to point to the input image
