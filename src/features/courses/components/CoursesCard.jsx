@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ModalSection from "../sections/ModalSection";
+import ModalSection from "../../common/components/ModalComponent";
 import ButtonComponent from "../../common/components/ButtonComponent";
 import useDeleteCourse from "../hooks/useDeleteCourse";
 
