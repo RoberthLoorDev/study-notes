@@ -10,10 +10,16 @@ export default function UseSaveCourses() {
     const { fetchCourses } = UseGetCourses();
 
     const handleSaveCourse = async () => {
-        const imageUrlToSave = await uploadImage(image);
         try {
+            const imageUrlToSave = await uploadImage(image);
             await saveCourse(user, name, imageUrlToSave);
+            console.log("Curso creado");
+
+            // update the courses list after from create a new course
             await fetchCourses();
+            // event that updates the courses
+            const updateEvent = new Event("updateList");
+            window.dispatchEvent(updateEvent);
         } catch (error) {
             console.error(error);
         }

@@ -6,14 +6,14 @@ export default function UseGetCourses() {
     const { user } = UseAuth();
     const [courses, setCourses] = useState([]);
 
-    const fetchCourses = useCallback(async () => {
+    const fetchCourses = async () => {
         const dataCourses = await getCoursesByUser(user);
         setCourses(dataCourses);
-    }, [user]);
+    };
 
     useEffect(() => {
         fetchCourses();
-    }, [fetchCourses]);
+    }, []);
 
-    return { courses, fetchCourses };
+    return { courses, fetchCourses, setCourses };
 }
