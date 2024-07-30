@@ -24,6 +24,7 @@ function App() {
                     />
                 </Routes>
                 <Toaster
+                    position="top-center"
                     toastOptions={{
                         style: {
                             background: "#D3D3D3",

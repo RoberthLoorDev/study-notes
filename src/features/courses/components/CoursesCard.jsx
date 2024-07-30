@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import ModalSection from "../sections/ModalSection";
 import ButtonComponent from "../../common/components/ButtonComponent";
-import { deleteCourse } from "../api/api";
+import useDeleteCourse from "../hooks/useDeleteCourse";
 
 export default function CoursesCard({ title, image, id }) {
     const [handleDeleteModal, setHandleDeleteModal] = useState(false);
 
+    const { deleteDocCourse } = useDeleteCourse();
     const openModal = () => setHandleDeleteModal(true);
     const closeModal = () => setHandleDeleteModal(false);
-
-    const deleteDocCourse = async () => {
-        await deleteCourse(id);
-    };
 
     return (
         <article className="h-40 flex flex-col rounded-lg bg-[#1B1B1D] cursor-pointer">
@@ -35,7 +32,11 @@ export default function CoursesCard({ title, image, id }) {
                 <span className="text-white text-sm">{`"${title}"`}</span>
                 <div className="flex mt-5 gap-3">
                     <ButtonComponent title="Cancel" onClick={closeModal} />
-                    <ButtonComponent title="Delete" backgroundColor="#FF000020" onClick={deleteDocCourse} />
+                    <ButtonComponent
+                        title="Delete"
+                        backgroundColor="#FF000020"
+                        onClick={() => deleteDocCourse(id)}
+                    />
                 </div>
             </ModalSection>
         </article>
