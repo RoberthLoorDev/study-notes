@@ -38,13 +38,10 @@ export default function UseSaveCourses() {
                 sucess: "Curso creado exitosamente",
                 error: "Error al crear el curso",
             });
-
-            setName("");
-            setImage(null);
         } catch (error) {
             console.error("[UseSaveCourses]", error);
         }
     };
 
-    return { setName, setImage, handleSaveCourse };
+    return { setName, setImage, handleSaveCourse, image };
 }

@@ -7,7 +7,7 @@ import ModalSection from "../../common/components/ModalComponent";
 export default function CoursesPage() {
     //we use ref to point to the input image
 
-    const { handleSaveCourse, setImage, setName } = UseSaveCourses();
+    const { handleSaveCourse, setImage, setName, image } = UseSaveCourses();
     const inputRefImage = useRef(null);
 
     const focusInput = () => {
@@ -50,16 +50,35 @@ export default function CoursesPage() {
 
                     <button
                         onClick={focusInput}
-                        className="w-full flex flex-col items-center border-2 rounded-lg border-dashed border-[#343434] py-3 mt-3"
+                        className="w-full flex flex-col items-center border-2 rounded-lg  py-3 mt-3 relative"
+                        style={image ? { borderColor: "#C3C3C" } : { border: "dashed", borderColor: "#343434" }}
                     >
                         <img className="w-auto h-[50px]" src="/public/assets/image/upload-image.png" alt="" />
                         <span className="text-[#717171] text-sm">
                             <b>Click to upload</b> or drag and drop
                         </span>
                         <span className="text-[#717171] text-xs">Only images</span>
+
+                        {image ? (
+                            <img
+                                src="/public/assets/check.png"
+                                alt=""
+                                className="absolute w-6 h-6 -bottom-3 -right-3 animate-bounceIn"
+                            />
+                        ) : (
+                            ""
+                        )}
                     </button>
 
-                    <ButtonComponent title="Create subject" margin="61px 0 0 0" onClick={handleSaveCourse} />
+                    <div className="text-white text-xs mt-5 text-center underline opacity-85">
+                        {image ? (
+                            <span className="truncate">{image.name}</span>
+                        ) : (
+                            <span className="opacity-25">No hay imagen selccionada</span>
+                        )}
+                    </div>
+
+                    <ButtonComponent title="Create subject" margin="30px 0 0 0" onClick={handleSaveCourse} />
                 </ModalSection>
             </div>
 
