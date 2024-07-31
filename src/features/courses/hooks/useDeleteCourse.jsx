@@ -1,13 +1,16 @@
 import { deleteCourse } from "../api/api";
 import useToastNotification from "../../common/hooks/useToastNotification";
+import eventUpdateCoursesList from "../events/eventUpdateCoursesList";
 
 export default function useDeleteCourse() {
     const { showPromiseToast } = useToastNotification();
+    const { updateCoursesList } = eventUpdateCoursesList();
 
     const deleteDocCourse = async (id) => {
         try {
             const handleDeleteCourse = async () => {
                 await deleteCourse(id);
+                updateCoursesList();
             };
 
             showPromiseToast(handleDeleteCourse(id), {
@@ -16,8 +19,6 @@ export default function useDeleteCourse() {
                 error: "Error al eliminar el curso",
             });
 
-            const updateEvent = new Event("updateList");
-            window.dispatchEvent(updateEvent);
         } catch (error) {
             console.error(error);
         }

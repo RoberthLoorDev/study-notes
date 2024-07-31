@@ -3,12 +3,14 @@ import { saveCourse, uploadImage } from "../api/api";
 import useAuth from "../../auth/context/UseAuth";
 import UseGetCourses from "./UseGetCourses";
 import useToastNotification from "../../common/hooks/useToastNotification";
+import eventUpdateCoursesList from "../events/eventUpdateCoursesList";
 
 export default function UseSaveCourses() {
     const { user } = useAuth();
     const [image, setImage] = useState("");
     const [name, setName] = useState("");
     const { fetchCourses } = UseGetCourses();
+    const { updateCoursesList } = eventUpdateCoursesList();
 
     //toast notification
     const { showPromiseToast } = useToastNotification();
@@ -18,10 +20,7 @@ export default function UseSaveCourses() {
             const createCourse = async () => {
                 const imageUrlToSave = await uploadImage(image);
                 await saveCourse(user, name, imageUrlToSave);
-
-                // event that updates the courses
-                const updateEvent = new Event("updateList");
-                window.dispatchEvent(updateEvent);
+                updateCoursesList();
             };
 
             showPromiseToast(createCourse, {
