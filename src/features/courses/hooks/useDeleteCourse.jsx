@@ -15,6 +15,9 @@ export default function useDeleteCourse() {
                 sucess: "Curso eliminado exitosamente",
                 error: "Error al eliminar el curso",
             });
+
+            const updateEvent = new Event("updateList");
+            window.dispatchEvent(updateEvent);
         } catch (error) {
             console.error(error);
         }
