@@ -11,5 +11,9 @@ export default function useToastNotification() {
         });
     };
 
-    return { showPromiseToast };
+    const showErrorToast = (message) => {
+        toast.error(message);
+    };
+
+    return { showPromiseToast, showErrorToast };
 }

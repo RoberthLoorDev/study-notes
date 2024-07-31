@@ -13,9 +13,19 @@ export default function UseSaveCourses() {
     const { updateCoursesList } = eventUpdateCoursesList();
 
     //toast notification
-    const { showPromiseToast } = useToastNotification();
+    const { showPromiseToast, showErrorToast } = useToastNotification();
 
     const handleSaveCourse = async () => {
+        if (!user) {
+            showErrorToast("Usuario no autenticado. Inicie sesión de nuevo");
+            return;
+        }
+
+        if (!name) {
+            showErrorToast("El nombre del curso es obligatorio");
+            return;
+        }
+
         try {
             const createCourse = async () => {
                 const imageUrlToSave = await uploadImage(image);
@@ -28,8 +38,11 @@ export default function UseSaveCourses() {
                 sucess: "Curso creado exitosamente",
                 error: "Error al crear el curso",
             });
+
+            setName("");
+            setImage(null);
         } catch (error) {
-            console.error(error);
+            console.error("[UseSaveCourses]", error);
         }
     };
 

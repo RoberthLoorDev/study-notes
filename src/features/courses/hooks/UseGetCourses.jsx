@@ -7,8 +7,17 @@ export default function UseGetCourses() {
     const [courses, setCourses] = useState([]);
 
     const fetchCourses = async () => {
-        const dataCourses = await getCoursesByUser(user);
-        setCourses(dataCourses);
+        if (!user) {
+            showErrorToast("Usuario no autenticado. Inicie sesión de nuevo");
+            return;
+        }
+
+        try {
+            const dataCourses = await getCoursesByUser(user);
+            setCourses(dataCourses);
+        } catch (error) {
+            console.error("[UseGetCourses]", error);
+        }
     };
 
     useEffect(() => {

@@ -3,10 +3,15 @@ import useToastNotification from "../../common/hooks/useToastNotification";
 import eventUpdateCoursesList from "../events/eventUpdateCoursesList";
 
 export default function useDeleteCourse() {
-    const { showPromiseToast } = useToastNotification();
+    const { showPromiseToast, showErrorToast } = useToastNotification();
     const { updateCoursesList } = eventUpdateCoursesList();
 
     const deleteDocCourse = async (id) => {
+        if (!id) {
+            showErrorToast("No se encontró el curso seleccionado. Inténtelo de nuevo");
+            return;
+        }
+
         try {
             const handleDeleteCourse = async () => {
                 await deleteCourse(id);
@@ -18,9 +23,8 @@ export default function useDeleteCourse() {
                 sucess: "Curso eliminado exitosamente",
                 error: "Error al eliminar el curso",
             });
-
         } catch (error) {
-            console.error(error);
+            console.error("[useDeleteCourse]", error);
         }
     };
 
