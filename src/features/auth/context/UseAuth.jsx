@@ -1,9 +1,4 @@
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signInWithPopup,
-    signOut,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { useContext } from "react";
 import { auth, provider } from "../../../../firebase";
 import { AuthContext } from "./AuthContext";
