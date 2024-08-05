@@ -3,6 +3,7 @@ import ButtonComponent from "../../common/components/ButtonComponent";
 import UseSaveCourses from "../hooks/UseSaveCourses";
 import CoursesSection from "../sections/CoursesSection";
 import ModalSection from "../../common/components/ModalComponent";
+import TaskSection from "../../tasks/sections/TaskSection";
 
 export default function CoursesPage() {
     //we use ref to point to the input image
@@ -83,6 +84,21 @@ export default function CoursesPage() {
             </div>
 
             <CoursesSection />
+
+            <section className="mt-10">
+                <h2 className="text-[25px] uppercase text-[FFF] font-bold text-white">PENDING TASKS</h2>
+                <div className="flex mt-3 justify-between">
+                    <nav className="flex gap-1">
+                        <button className="w-[150px] h-[40px] bg-[#353539] rounded-lg text-white">Pending</button>
+                        <button className="w-[150px] h-[40px] bg-[#1D1D1F] rounded-lg text-white">In progress</button>
+                        <button className="w-[150px] h-[40px] bg-[#1D1D1F] rounded-lg text-white">Finished</button>
+                    </nav>
+
+                    <button className="w-[150px] h-[40px] bg-[#353539] rounded-lg text-white">Create task</button>
+                </div>
+
+                <TaskSection />
+            </section>
         </main>
     );
 }
