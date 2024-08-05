@@ -1,21 +1,23 @@
-import "@testing-library/jest-dom";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import React from "react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import CoursesPage from "../../courses/pages/CoursesPage";
 import ProtectedRoutes from "../context/ProtectedRoutes";
 import UseAuth from "../context/UseAuth";
 import LoginPage from "../pages/LoginPage";
 
-//Mock UseAuth
-jest.mock("../context/UseAuth.jsx");
+vi.mock("../context/UseAuth", () => ({
+    __esModule: true,
+    default: vi.fn(),
+}));
 
-//tests
+// Tests
 describe("Protected Routes", () => {
-    test("Redirects to login if no authenticated user", () => {
+    it("Redirects to login if no authenticated user", () => {
+        // Configurar el mock para que devuelva un usuario nulo
         UseAuth.mockReturnValue({ user: null });
 
-        //render the component with memory router for route handling
+        // Renderizar el componente con MemoryRouter para el manejo de rutas
         render(
             <MemoryRouter initialEntries={["/courses"]}>
                 <Routes>
@@ -32,12 +34,15 @@ describe("Protected Routes", () => {
             </MemoryRouter>
         );
 
+        // Verificar que se redirige al usuario a la página de inicio de sesión
         expect(screen.getByText("INICIAR SESIÓN")).toBeInTheDocument();
     });
 
-    test("Redirect user if is authenticated", () => {
+    it("Redirect user if authenticated", () => {
+        // Configurar el mock para que devuelva un usuario autenticado
         UseAuth.mockReturnValue({ user: { name: "Roberth" } });
 
+        // Renderizar el componente con MemoryRouter para el manejo de rutas
         render(
             <MemoryRouter initialEntries={["/courses"]}>
                 <Routes>
@@ -53,6 +58,7 @@ describe("Protected Routes", () => {
             </MemoryRouter>
         );
 
+        // Verificar que se muestra la página de cursos
         expect(screen.getByText("ALL COURSES")).toBeInTheDocument();
     });
 });

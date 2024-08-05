@@ -1,10 +1,13 @@
 import React, { useRef, useState } from "react";
-import CoursesSection from "../sections/CoursesSection";
 import ButtonComponent from "../../common/components/ButtonComponent";
-import ModalSection from "../sections/ModalSection";
+import UseSaveCourses from "../hooks/UseSaveCourses";
+import CoursesSection from "../sections/CoursesSection";
+import ModalSection from "../../common/components/ModalComponent";
 
 export default function CoursesPage() {
     //we use ref to point to the input image
+
+    const { handleSaveCourse, setImage, setName, image } = UseSaveCourses();
     const inputRefImage = useRef(null);
 
     const focusInput = () => {
@@ -26,11 +29,14 @@ export default function CoursesPage() {
 
                 <ButtonComponent width="149px" height="38px" title="Create course" onClick={openModal} />
 
+                {/* Modal create course
+                 */}
                 <ModalSection isOpen={isModalOpen} onClose={closeModal}>
                     <h3 className="font-medium text-white">Create subject</h3>
                     <input
                         type="email"
                         placeholder="Name of the subject"
+                        onChange={(e) => setName(e.target.value)}
                         className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none text-white mt-3"
                     />
 
@@ -39,20 +45,40 @@ export default function CoursesPage() {
                         type="file"
                         accept="image"
                         ref={inputRefImage}
+                        onChange={(e) => setImage(e.target.files[0])}
                     />
 
                     <button
                         onClick={focusInput}
-                        className="w-full flex flex-col items-center border-2 rounded-lg border-dashed border-[#343434] py-3 mt-3"
+                        className="w-full flex flex-col items-center border-2 rounded-lg  py-3 mt-3 relative"
+                        style={image ? { borderColor: "#C3C3C" } : { border: "dashed", borderColor: "#343434" }}
                     >
                         <img className="w-auto h-[50px]" src="/public/assets/image/upload-image.png" alt="" />
                         <span className="text-[#717171] text-sm">
                             <b>Click to upload</b> or drag and drop
                         </span>
                         <span className="text-[#717171] text-xs">Only images</span>
+
+                        {image ? (
+                            <img
+                                src="/public/assets/check.png"
+                                alt=""
+                                className="absolute w-6 h-6 -bottom-3 -right-3 animate-bounceIn"
+                            />
+                        ) : (
+                            ""
+                        )}
                     </button>
 
-                    <ButtonComponent title="Create subject" margin="61px 0 0 0" />
+                    <div className="text-white text-xs mt-5 text-center underline opacity-85">
+                        {image ? (
+                            <span className="truncate">{image.name}</span>
+                        ) : (
+                            <span className="opacity-25">No hay imagen selccionada</span>
+                        )}
+                    </div>
+
+                    <ButtonComponent title="Create subject" margin="30px 0 0 0" onClick={handleSaveCourse} />
                 </ModalSection>
             </div>
 
