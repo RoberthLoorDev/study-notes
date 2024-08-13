@@ -4,10 +4,11 @@ import UseSaveCourses from "../hooks/UseSaveCourses";
 import CoursesSection from "../sections/CoursesSection";
 import ModalSection from "../../common/components/ModalComponent";
 import TaskSection from "../../tasks/sections/TaskSection";
+import SelectComponent from "../../common/components/SelectComponent";
+import UseGetCourses from "../hooks/UseGetCourses";
 
 export default function CoursesPage() {
     //we use ref to point to the input image
-
     const { handleSaveCourse, setImage, setName, image } = UseSaveCourses();
     const inputRefImage = useRef(null);
 
@@ -16,12 +17,18 @@ export default function CoursesPage() {
             inputRefImage.current.click();
         }
     };
-
-    //control modal
-    const [isModalOpen, setisModalOpen] = useState(false);
-
     const openModal = () => setisModalOpen(true);
     const closeModal = () => setisModalOpen(false);
+
+    //Control modal create course
+    const [isModalOpen, setisModalOpen] = useState(false);
+    const [isModalTaskCreateOpen, setisModalTaskCreateOpen] = useState(false);
+
+    const openModalTask = () => setisModalTaskCreateOpen(true);
+    const closeModalTask = () => setisModalTaskCreateOpen(false);
+
+    //get courses for select in create course
+    const { courses } = UseGetCourses();
 
     return (
         <main className="flex flex-col w-full h-full px-[196px] mt-[72px]">
@@ -85,17 +92,43 @@ export default function CoursesPage() {
 
             <CoursesSection />
 
-            <section className="mt-10">
+            <section className="mt-24">
                 <h2 className="text-[25px] uppercase text-[FFF] font-bold text-white">PENDING TASKS</h2>
                 <div className="flex mt-3 justify-between">
                     <nav className="flex gap-1">
-                        <button className="w-[150px] h-[40px] bg-[#353539] rounded-lg text-white">Pending</button>
+                        <button className="w-[150px] h-[40px] bg-[#353539] rounded-lg text-white">All</button>
+                        <button className="w-[150px] h-[40px] bg-[#1D1D1F] rounded-lg text-white">Pending</button>
                         <button className="w-[150px] h-[40px] bg-[#1D1D1F] rounded-lg text-white">In progress</button>
                         <button className="w-[150px] h-[40px] bg-[#1D1D1F] rounded-lg text-white">Finished</button>
                     </nav>
 
-                    <button className="w-[150px] h-[40px] bg-[#353539] rounded-lg text-white">Create task</button>
+                    <ButtonComponent width="149px" title="Create task" onClick={openModalTask} />
                 </div>
+
+                <ModalSection isOpen={isModalTaskCreateOpen} onClose={closeModalTask} height="467px">
+                    <h3 className="font-medium text-white">Create a task</h3>
+
+                    <SelectComponent />
+
+                    <input
+                        type="text"
+                        placeholder="Title"
+                        className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none text-white mt-3"
+                    />
+
+                    <input
+                        type="date"
+                        placeholder="Delivery date"
+                        className="w-full h-[38px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg px-3 text-sm outline-none text-white mt-3"
+                    />
+                    <textarea
+                        type="text"
+                        placeholder="Description"
+                        className="w-full h-[132px] bg-[#19191B] border-[1px] border-[#343434] rounded-lg indent-3 text-sm outline-none text-white mt-3 pt-2 resize-none"
+                    />
+
+                    <ButtonComponent title="Create subject" margin="29px 0px 0px 0px" />
+                </ModalSection>
 
                 <TaskSection />
             </section>
