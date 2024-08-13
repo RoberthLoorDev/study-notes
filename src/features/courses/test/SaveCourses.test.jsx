@@ -1,5 +1,5 @@
 import { saveCourse } from "../api/api";
-import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { describe, expect, it, vi } from "vitest";
 import { db } from "../../../../firebase";
 

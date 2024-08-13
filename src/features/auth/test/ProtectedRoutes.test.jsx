@@ -14,10 +14,9 @@ vi.mock("../context/UseAuth", () => ({
 // Tests
 describe("Protected Routes", () => {
     it("Redirects to login if no authenticated user", () => {
-        // Configurar el mock para que devuelva un usuario nulo
         UseAuth.mockReturnValue({ user: null });
 
-        // Renderizar el componente con MemoryRouter para el manejo de rutas
+        // Render the component with MemoryRouter for handling routes
         render(
             <MemoryRouter initialEntries={["/courses"]}>
                 <Routes>
@@ -34,7 +33,7 @@ describe("Protected Routes", () => {
             </MemoryRouter>
         );
 
-        // Verificar que se redirige al usuario a la página de inicio de sesión
+        // Verify that the user is redirected to the login page
         expect(screen.getByText("INICIAR SESIÓN")).toBeInTheDocument();
     });
 
